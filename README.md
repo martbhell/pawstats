@@ -48,5 +48,18 @@ python $scriptdir/grab_stats.py --outdir $tmpdir --cities --sleep 1.00 --top50 -
 
 Then go look in $tmpdir - there will be lots of json files.
 
+maketable.py
+------------
+
+uses data from grab_stats.py to make a sortable html table
+
+Have some hardcoded settings inside (path to tarballs and alliance id to include)
+
+Usage:
+
+<pre>
+python maketable.py > index.html
+</pre>
+
 Author Information
 ------------------
