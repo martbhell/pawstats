@@ -1,7 +1,11 @@
 pawstats
 --------
 
-Game URL: https://politicsandwar.com/
+This is a collection of scripts used to augment / create some more visualization of the nations and alliances in PAW - ( https://politicsandwar.com/ ).
+
+The scripts are not the best they can be, but they do work (well enough). Initially they were a reason for me to learn some python, some JSON data mangling and then some D3.js visualization. I'm sure there are plenty of optimization to be done. 
+
+Some of the scripts read the API or parse the game's website itself, make some JSON and then write those JSON files to disk. Some other of the scripts use these JSON files to make tables, graphs or make other JSON files.
 
 grab_stats.py
 -------------
