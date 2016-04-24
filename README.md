@@ -7,6 +7,15 @@ The scripts are not the best they can be, but they do work (well enough). Initia
 
 Some of the scripts read the API or parse the game's website itself, make some JSON and then write those JSON files to disk. Some other of the scripts use these JSON files to make tables, graphs or make other JSON files.
 
+demos
+-----
+
+Part of the top50 table:
+![Top50](demo_top50_table.png)
+
+One of the members graphs:
+![Top50](demo_graph_members.png)
+
 grab_stats.py
 -------------
 
