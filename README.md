@@ -76,6 +76,8 @@ These we can later call with javascript on an html to make pretty graphs with la
 
 Uses http://metricsgraphicsjs.org/ (which sources to get are in the members.html)
 
+Tested with v2.7.0 and v2.9.0 of metricsgraphicsjs and 3.5.10 of D3.js
+
 See members.html for an example of how the .html can look.
 
 Author Information
