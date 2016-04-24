@@ -51,7 +51,7 @@ Then go look in $tmpdir - there will be lots of json files.
 maketable.py
 ------------
 
-uses data from grab_stats.py to make a sortable html table
+Uses data from grab_stats.py to make a sortable html table
 
 Have some hardcoded settings inside (path to tarballs and alliance id to include)
 
@@ -60,6 +60,19 @@ Usage:
 <pre>
 python maketable.py > index.html
 </pre>
+
+makegraph.py
+------------
+
+Uses data from grab_stats.py to make a bunch of JSON files. One JSON file per graph, like soldiers_0.json
+
+Have some hardcoded settings inside (path to tarballs)
+
+These we can later call with javascript on an html to make pretty graphs with labeling.
+
+Uses http://metricsgraphicsjs.org/ (which sources to get are in the members.html)
+
+See members.html for an example of how the .html can look.
 
 Author Information
 ------------------

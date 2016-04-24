@@ -1,0 +1,117 @@
+<html>
+<meta name="theme-color" content="green">
+<head>
+<script src="jquery-2.1.4.min.js"></script>
+<script src="d3.min.js" charset="utf-8"></script>
+<script src="metricsgraphics.min.js"></script>
+<script src="mg_line_brushing.js"></script>
+<link href="metricsgraphics.css" rel="stylesheet" type="text/css">
+<link href="mg_line_brushing.css" rel="stylesheet" type="text/css">
+</head>
+
+<script>
+
+    d3.json("members_0.json", function(data) {
+        legend = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i] = MG.convert.date(data[i], 'date', "%Y-%m-%dT%H:%M:%S");
+	    legend.push(data[i][0]["alliance"]);
+        };
+
+        MG.data_graphic({
+            title: "members0",
+            data: data,
+            width: 900,
+            height: 500,
+            right: 40,
+            target: "#members_0",
+            linked: true,
+            legend: legend,
+            legend_target: '#legend'
+        });
+    })
+
+    d3.json("members_1.json", function(data) {
+        legend = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i] = MG.convert.date(data[i], 'date', "%Y-%m-%dT%H:%M:%S");
+            legend.push(data[i][0]["alliance"]);
+        };
+
+        MG.data_graphic({
+            title: "members1",
+            data: data,
+            width: 900,
+            height: 500,
+            right: 40,
+            target: "#members_1",
+            linked: true,
+            legend: legend,
+            legend_target: '#legend1'
+        });
+    })
+
+    d3.json("members_2.json", function(data) {
+        legend = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i] = MG.convert.date(data[i], 'date', "%Y-%m-%dT%H:%M:%S");
+            legend.push(data[i][0]["alliance"]);
+        };
+
+        MG.data_graphic({
+            title: "members2",
+            data: data,
+            width: 900,
+            height: 500,
+            right: 40,
+            target: "#members_2",
+            linked: true,
+            legend: legend,
+            legend_target: '#legend2'
+        });
+    })
+
+    d3.json("members_3.json", function(data) {
+        legend = [];
+        for (var i = 0; i < data.length; i++) {
+            data[i] = MG.convert.date(data[i], 'date', "%Y-%m-%dT%H:%M:%S");
+            legend.push(data[i][0]["alliance"]);
+        };
+
+        MG.data_graphic({
+            title: "members3",
+            data: data,
+            width: 900,
+            height: 500,
+            right: 40,
+            target: "#members_3",
+            linked: true,
+            legend: legend,
+            legend_target: '#legend3'
+        });
+    });
+
+</script>
+
+
+<div align="center">
+<div id="members_0">
+</div>
+<div id="legend">
+</div>
+<!-- -->
+
+<div id="members_1">
+</div>
+<div id="legend1">
+</div>
+<div id="members_2">
+</div>
+<div id="legend2">
+</div>
+<div id="members_3">
+</div>
+<div id="legend3">
+</div>
+</div>
+</html>
