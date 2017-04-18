@@ -122,20 +122,20 @@ def getalliances2(num_alliances):
     try:
       members = alliance["members"]
     except KeyError as e:
-      print "No member found for alliance with id %s, setting members to 0 and viewing that alliance to get rid of it" % alliance
+      if debug: print "No member found for alliance with id %s, setting members to 0 and viewing that alliance to get rid of it" % alliance
       req_mem = urllib2.Request(allianceurl, headers=hdr)
       response_mem = urllib2.urlopen(req_mem)
       url_mem = response.read()
-      print url_mem
+      if debug: print url_mem
       members = 0
     try:
       score = alliance["score"]
     except KeyError as e:
-      print "No score found for alliance with id %s, setting score to 0 and viewing that alliance page to get rid of it" % alliance
+      if debug: print "No score found for alliance with id %s, setting score to 0 and viewing that alliance page to get rid of it" % alliance
       req_score = urllib2.Request(allianceurl, headers=hdr)
       response_score = urllib2.urlopen(req_score)
       url_score = response.read()
-      print url_score
+      if debug: print url_score
       score = 0
     avgscore = alliance["avgscore"]
     acronym = alliance["acronym"]
@@ -202,7 +202,12 @@ def getmemberlist(alliancename):
 
   # <p style="text-align:center;">Showing 0-50 of 59 Nations</p>
   # make this an int, find all paragraphs, get the paragraph with index 2, get contents, split on of, second item, split on Nations, first item
-  alliancemembers = int(soup.find_all('p')[2].string.split("of")[1].split("Nations")[0])
+  alliancemembers = 0
+  try:
+    alliancemembers = int(soup.find_all('p')[2].string.split("of")[1].split("Nations")[0])
+  except IndexError:
+    print "%s is not looking good" % alliancemembers
+ 
   if debug: print "%s members in %s" % (alliancemembers, alliancename)
 
   if alliancemembers > 100:
@@ -227,6 +232,7 @@ def getmemberlist(alliancename):
       rowcounter += 1
       cellcounter = 0
       cells = row.findChildren('td')
+      nationin3wars = False
       for cell in cells:
          cellcounter += 1
          value = cell.string
@@ -236,23 +242,32 @@ def getmemberlist(alliancename):
              # RANK)
              alliancerank = int(value.strip(")"))
              if debug: print alliancerank
+             if debug: print "cells: %s" % (len(cells))
          else:
+           if cells[6].find_all('img') == []: nationin3wars = True
            if cellcounter == 2:
              link = cell.find_all('a')
              URL = link[0].get('href')
              nationid = URL.split('=')[1]
              nationname = link[0].text
+             #if debug: print "nationid: %s" % (nationid)
+             if nationin3wars == True:
+               defslots = 0
+               alliancerank = 0
+               nationdict[nationid] = { "defslots" : defslots, "alliancerank" : alliancerank, "name": nationname }
            if cellcounter == 7:
              # of defensive slots is in the title attribute of an image in the 7th and last column
              # Here we also populate the dictionary
+             #if debug: print "value: %s" % value
              try:
+               if debug: print "nationid: %s" % (nationid)
                img = cell.find_all('img')
                try:
                  defslots = img[0].get('title').split(" ")[0]
                except IndexError:
                  defslots = 0
                nationdict[nationid] = { "defslots" : defslots, "alliancerank" : alliancerank, "name": nationname }
-               #if debug: print defslots
+               #if debug: print "nationid: %s has defslots: %s" % (nationid,defslots)
              except:
                defslots = 0
                alliancerank = 0
@@ -303,7 +318,7 @@ def getnationdata(grabcitiesdata):
             nrf = data["nuclearresfac"]
             irond = data["irondome"]
             vds = data["vitaldefsys"]
-            cia = data["cenintagncy"]
+            cia = data["intagncy"]
             ue = data["uraniumenrich"]
             pb = data["propbureau"]
             cce = data["cenciveng"]
@@ -501,7 +516,7 @@ def getdatafromlistofnations():
           nrf = data["nuclearresfac"]
           irond = data["irondome"]
           vds = data["vitaldefsys"]
-          cia = data["cenintagncy"]
+          cia = data["intagncy"]
           ue = data["uraniumenrich"]
           pb = data["propbureau"]
           cce = data["cenciveng"]
