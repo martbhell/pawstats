@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # Grab stats from the PAW Alliance, Nation and City APIs as well as scraping the actual website.
+#
 import urllib2
 import datetime
 import time
