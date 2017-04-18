@@ -27,7 +27,7 @@ newpath = '/tmp/pawtempgraph'
 
 debug = False
 
-days_back = 50
+days_back = 72
 now = time.time()
 
 def setup_cleanup():
@@ -97,6 +97,9 @@ def alliancedata():
       ##
       # first make a dict with all the alliances and each score
       # make an ordereddict of the top 20 alliances - sort by score
+# and we exclude this for some reason
+      if name == "Treasure Island" or name == "Westerosi Republic":
+        continue
       onlyallianceandscore.update({ name: score })
       sorted_alliances = collections.OrderedDict(sorted(onlyallianceandscore.items(), key=lambda t: t[1]))
       ##
