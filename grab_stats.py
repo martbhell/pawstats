@@ -155,7 +155,7 @@ def getalliances():
     req = urllib2.Request(page, headers=hdr)
     response = urllib2.urlopen(req)
     url = response.read()
-    soup = BeautifulSoup(url)
+    soup = BeautifulSoup(url, 'lxml')
     rowcounter = 0
 
     nationtable = soup('table')[0]
@@ -199,7 +199,7 @@ def getmemberlist(alliancename):
   req = urllib2.Request(page1, headers=hdr)
   response = urllib2.urlopen(req)
   url = response.read()
-  soup = BeautifulSoup(url)
+  soup = BeautifulSoup(url, 'lxml')
 
   # <p style="text-align:center;">Showing 0-50 of 59 Nations</p>
   # make this an int, find all paragraphs, get the paragraph with index 2, get contents, split on of, second item, split on Nations, first item
@@ -223,7 +223,7 @@ def getmemberlist(alliancename):
     req = urllib2.Request(page, headers=hdr)
     response = urllib2.urlopen(req)
     url = response.read()
-    soup = BeautifulSoup(url)
+    soup = BeautifulSoup(url, 'lxml')
 
     rowcounter = 0
 
@@ -441,7 +441,7 @@ def gettop50nations():
     req = urllib2.Request(page, headers=hdr)
     response = urllib2.urlopen(req)
     url = response.read()
-    soup = BeautifulSoup(url)
+    soup = BeautifulSoup(url, 'lxml')
     rowcounter = 0
 
     nationtable = soup('table')[0]
