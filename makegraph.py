@@ -48,7 +48,7 @@ def extract_the_files():
     counter += 1
     #if counter % 10 == 0:
     if counter % 2 == 0:
-      if debug: print file
+      #if debug: print file
       tar = tarfile.open(file)
       tar.extractall(path=newpath)
       tar.close()
@@ -90,7 +90,7 @@ def alliancedata():
           timestamp = data["data"]["timestamp2"]
         except:
           if debug:
-            print "data: %s" % data
+          #  print "data: %s" % data
             print "file: %s" % f
           timestamp = data["data"]["alliancedata"]["timestamp2"]
 
@@ -98,8 +98,9 @@ def alliancedata():
       # first make a dict with all the alliances and each score
       # make an ordereddict of the top 20 alliances - sort by score
 # and we exclude this for some reason
-      if name == "Treasure Island" or name == "Westerosi Republic":
-        continue
+# The VE excluded - renamed to VE..
+      #if name == "Treasure Island" or name == "Westerosi Republic" or name == "The Viridian Entente":
+      #  continue
       onlyallianceandscore.update({ name: score })
       sorted_alliances = collections.OrderedDict(sorted(onlyallianceandscore.items(), key=lambda t: t[1]))
       ##
@@ -141,8 +142,8 @@ def alliancedata():
         except:
           alliancedict[field] = {}
 
-  if debug: print "alliancedict:"
-  if debug: print alliancedict
+ # if debug: print "alliancedict:"
+ # if debug: print len(alliancedict)
 
   # Sort it and put only top20 alliances based on score
   top20_alliances=sorted(sorted_alliances, key=sorted_alliances.get, reverse=True)[:20]
@@ -153,7 +154,13 @@ def alliancedata():
      for alliance in top20_alliances:
        top20data[field][alliance] = collections.OrderedDict()
 #       print alliancedict[field]
-       data = alliancedict[field][alliance]
+       try:
+           data = alliancedict[field][alliance]
+       except KeyError:
+           if debug: print "could not find %s for %s for an unknown reason, setting it to {}" % (alliance, field)
+           alliancedict[field][alliance] = {}
+           data = alliancedict[field][alliance]
+
        if alliance in top20_alliances:
          top20data[field][alliance] = collections.OrderedDict(sorted(data.items()))
 
