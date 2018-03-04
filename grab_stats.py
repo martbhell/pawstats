@@ -67,7 +67,11 @@ def getalliancedata():
       fullallianceurl = allianceapi + str(alliance)
       if debug: print fullallianceurl
       req = urllib2.Request(fullallianceurl, headers=hdr)
-      response = urllib2.urlopen(req)
+      try:
+          response = urllib2.urlopen(req)
+      except urllib2.HTTPError as e:
+          print "HTTPError in getalliancedata(): %s" % e
+          os._exit(449)
       url = response.read()
       apireqcounter += 1
       try:
@@ -106,13 +110,17 @@ def getalliances2(num_alliances):
   # returns a dict with stats for the top num_alliances
   # {'623': {'avgscore': 1137.99, 'rank': 4, 'acronym': "GPA"}, '622': ... } 
 
+  alliancedict = {}
   num_alliances = num_alliances
   req = urllib2.Request(alliancesapi, headers=hdr)
-  response = urllib2.urlopen(req)
+  try:
+      response = urllib2.urlopen(req)
+  except urllib2.HTTPError as e:
+      print "HTTP Error in getalliances2(): %s" % e
+      os._exit(444)
+
   url = response.read()
   data = json.loads(url)
-
-  alliancedict = {}
 
   alliances = data["alliances"]
   for alliance in alliances:
@@ -153,7 +161,11 @@ def getalliances():
 
   for page in alliancetop50pages:
     req = urllib2.Request(page, headers=hdr)
-    response = urllib2.urlopen(req)
+    try:
+        response = urllib2.urlopen(req)
+    except urllib2.HTTPError as e:
+        print "HTTP Error in getalliances(): %s" % e
+        os._exit(445)
     url = response.read()
     soup = BeautifulSoup(url, 'lxml')
     rowcounter = 0
@@ -197,7 +209,11 @@ def getmemberlist(alliancename):
   pages3 = [ page1, page2, page3 ]
   whichpages = page1
   req = urllib2.Request(page1, headers=hdr)
-  response = urllib2.urlopen(req)
+  try:
+      response = urllib2.urlopen(req)
+  except urllib2.HTTPError as e:
+      print "HTTP Error in getmemberlist(): %s" % e
+      os._exit(446)
   url = response.read()
   soup = BeautifulSoup(url, 'lxml')
 
@@ -221,7 +237,11 @@ def getmemberlist(alliancename):
   if debug: print "whichpages: %s" % whichpages
   for page in whichpages:
     req = urllib2.Request(page, headers=hdr)
-    response = urllib2.urlopen(req)
+    try:
+        response = urllib2.urlopen(req)
+    except urllib2.HTTPError as e:
+        print "HTTPError in getmemberlist() again: %s" % e
+        os._exit(451)
     url = response.read()
     soup = BeautifulSoup(url, 'lxml')
 
@@ -298,7 +318,11 @@ def getnationdata(grabcitiesdata):
         fullnationurl = nationapi + str(nation)
         if debug: print fullnationurl
         req = urllib2.Request(fullnationurl, headers=hdr)
-        response = urllib2.urlopen(req)
+        try:
+            response = urllib2.urlopen(req)
+        except urllib2.HTTPError as e:
+            print "HTTPError in getnationdata() again: %s" % e
+            os._exit(452)
         url = response.read()
         apireqcounter += 1
         try:
@@ -439,7 +463,11 @@ def gettop50nations():
   for page in top50nationspages:
     if debug: print "TOP50"
     req = urllib2.Request(page, headers=hdr)
-    response = urllib2.urlopen(req)
+    try:
+        response = urllib2.urlopen(req)
+    except urllib2.HTTPError as e:
+        print "HTTPError in gettop50nations(): %s" % e
+        os._exit(447)
     url = response.read()
     soup = BeautifulSoup(url, 'lxml')
     rowcounter = 0
@@ -496,7 +524,11 @@ def getdatafromlistofnations():
       fullnationurl = nationapi + str(nation)
       #if debug: print fullnationurl
       req = urllib2.Request(fullnationurl, headers=hdr)
-      response = urllib2.urlopen(req)
+      try:
+          response = urllib2.urlopen(req)
+      except urllib2.HTTPError as e:
+          print "HTTPError in getdatafromlistofnations(): %s" % e
+          os._exit(448)
       url = response.read()
       apireqcounter += 1
       try:
