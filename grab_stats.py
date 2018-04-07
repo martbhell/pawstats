@@ -218,10 +218,10 @@ def getmemberlist(alliancename):
   soup = BeautifulSoup(url, 'lxml')
 
   # <p style="text-align:center;">Showing 0-50 of 59 Nations</p>
-  # make this an int, find all paragraphs, get the paragraph with index 2, get contents, split on of, second item, split on Nations, first item
+  # make this an int, find all paragraphs, get the paragraph with index 3, get contents, split on of, second item, split on Nations, first item
   alliancemembers = 0
   try:
-    alliancemembers = int(soup.find_all('p')[2].string.split("of")[1].split("Nations")[0])
+    alliancemembers = int(soup.find_all('p')[3].string.split("of")[1].split("Nations")[0])
   except IndexError:
     print "%s is not looking good" % alliancemembers
  
